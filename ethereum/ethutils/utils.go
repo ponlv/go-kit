@@ -1,4 +1,4 @@
-package ethereum
+package ethutils
 
 import (
 	"bytes"
@@ -13,6 +13,7 @@ import (
 	"fmt"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/ponlv/go-kit/ethereum"
 	"github.com/shopspring/decimal"
 	"io"
 	"math/big"
@@ -240,14 +241,14 @@ func Encrypt(keyText, text string) (string, error) {
 }
 
 func SuggestGasPrice(client *ethclient.Client) (*big.Int, error) {
-	gasPrice := HardGasPrice
-	if HardGasPrice.Cmp(big.NewInt(0)) <= 0 {
+	gasPrice := ethereum.HardGasPrice
+	if ethereum.HardGasPrice.Cmp(big.NewInt(0)) <= 0 {
 		estGasPrice, err := client.SuggestGasPrice(context.Background())
 		if err != nil {
 			return nil, err
 		}
 
-		if estGasPrice.Cmp(MaxGasPriceToAdjust) == -1 {
+		if estGasPrice.Cmp(ethereum.MaxGasPriceToAdjust) == -1 {
 			tipFee := big.NewInt(0).Div(estGasPrice, big.NewInt(6)) // gas price * 1/6
 			totalFee := big.NewInt(0).Add(estGasPrice, tipFee)
 			gasPrice = totalFee
