@@ -13,7 +13,6 @@ import (
 	"fmt"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/ponlv/go-kit/ethereum"
 	"github.com/shopspring/decimal"
 	"io"
 	"math/big"
@@ -238,25 +237,4 @@ func Encrypt(keyText, text string) (string, error) {
 
 	// convert to base64
 	return base64.URLEncoding.EncodeToString(ciphertext), nil
-}
-
-func SuggestGasPrice(client *ethclient.Client) (*big.Int, error) {
-	gasPrice := ethereum.HardGasPrice
-	if ethereum.HardGasPrice.Cmp(big.NewInt(0)) <= 0 {
-		estGasPrice, err := client.SuggestGasPrice(context.Background())
-		if err != nil {
-			return nil, err
-		}
-
-		if estGasPrice.Cmp(ethereum.MaxGasPriceToAdjust) == -1 {
-			tipFee := big.NewInt(0).Div(estGasPrice, big.NewInt(6)) // gas price * 1/6
-			totalFee := big.NewInt(0).Add(estGasPrice, tipFee)
-			gasPrice = totalFee
-		} else {
-			tipFee := big.NewInt(0).Div(estGasPrice, big.NewInt(6)) // gas price * 1/6
-			gasPrice = big.NewInt(0).Add(estGasPrice, tipFee)
-		}
-	} else {
-	}
-	return gasPrice, nil
 }
