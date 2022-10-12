@@ -2,7 +2,8 @@ package mongodb
 
 import (
 	"context"
-	"go-kit/mongodb/builder"
+
+	"github.com/ponlv/go-kit/mongodb/builder"
 
 	"github.com/kamva/mgm/v3/field"
 	"go.mongodb.org/mongo-driver/bson"

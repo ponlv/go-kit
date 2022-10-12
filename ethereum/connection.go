@@ -3,10 +3,11 @@ package ethereum
 import (
 	"context"
 	"fmt"
-	"go-kit/ethereum/ethutils"
-	"go-kit/plog"
 	"math/big"
 	"time"
+
+	"github.com/ponlv/go-kit/ethereum/ethutils"
+	"github.com/ponlv/go-kit/plog"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"

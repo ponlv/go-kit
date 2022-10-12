@@ -1,4 +1,4 @@
-module go-kit
+module github.com/ponlv/go-kit
 
 go 1.18
 

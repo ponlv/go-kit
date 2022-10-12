@@ -2,8 +2,9 @@ package mongodb
 
 import (
 	"fmt"
-	"go-kit/mongodb/utils"
 	"reflect"
+
+	"github.com/ponlv/go-kit/mongodb/utils"
 
 	"github.com/jinzhu/inflection"
 	"go.mongodb.org/mongo-driver/mongo/options"

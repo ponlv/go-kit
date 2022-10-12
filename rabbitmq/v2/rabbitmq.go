@@ -2,10 +2,11 @@ package v2
 
 import (
 	"fmt"
-	"go-kit/plog"
 	_ "reflect"
 	"sync"
 	"time"
+
+	"github.com/ponlv/go-kit/plog"
 
 	"github.com/pkg/errors"
 	amqp "github.com/rabbitmq/amqp091-go"

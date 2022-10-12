@@ -2,8 +2,9 @@ package ethworker
 
 import (
 	"context"
-	"go-kit/plog"
 	"math/big"
+
+	"github.com/ponlv/go-kit/plog"
 
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/common"

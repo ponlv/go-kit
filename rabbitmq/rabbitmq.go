@@ -3,7 +3,8 @@ package rabbitmq
 import (
 	"errors"
 	"fmt"
-	"go-kit/plog"
+
+	"github.com/ponlv/go-kit/plog"
 
 	amqp "github.com/rabbitmq/amqp091-go"
 )

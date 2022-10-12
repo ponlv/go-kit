@@ -5,7 +5,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"go-kit/plog"
+
+	"github.com/ponlv/go-kit/plog"
 
 	"github.com/makasim/amqpextra"
 	"github.com/makasim/amqpextra/consumer"
