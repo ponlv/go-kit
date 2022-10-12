@@ -5,10 +5,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"go-kit/plog"
+
 	"github.com/makasim/amqpextra"
 	"github.com/makasim/amqpextra/consumer"
 	"github.com/makasim/amqpextra/publisher"
-	"github.com/ponlv/go-kit/plog"
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 

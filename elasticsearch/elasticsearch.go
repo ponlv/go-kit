@@ -7,8 +7,9 @@ import (
 	"strings"
 	"time"
 
+	"go-kit/elasticsearch/utils"
+
 	el "github.com/olivere/elastic/v7"
-	"github.com/ponlv/go-kit/elasticsearch/utils"
 	log "github.com/sirupsen/logrus"
 )
 

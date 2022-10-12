@@ -2,7 +2,7 @@ package v2
 
 import (
 	"fmt"
-	"github.com/ponlv/go-kit/plog"
+	"go-kit/plog"
 	_ "reflect"
 	"sync"
 	"time"

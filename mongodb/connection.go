@@ -3,11 +3,12 @@ package mongodb
 import (
 	"context"
 	"errors"
-	"github.com/ponlv/go-kit/mongodb/utils"
+	"go-kit/mongodb/utils"
+	"time"
+
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
-	"time"
 )
 
 var config *Config

@@ -2,12 +2,13 @@ package ethworker
 
 import (
 	"context"
+	"go-kit/plog"
+	"math/big"
+
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/ponlv/go-kit/plog"
-	"math/big"
 )
 
 var logger = plog.NewBizLogger("chain-worker")

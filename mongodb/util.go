@@ -2,12 +2,13 @@ package mongodb
 
 import (
 	"fmt"
+	"go-kit/mongodb/utils"
+	"reflect"
+
 	"github.com/jinzhu/inflection"
-	"github.com/ponlv/go-kit/mongodb/utils"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 	"go.mongodb.org/mongo-driver/mongo/writeconcern"
-	"reflect"
 )
 
 // Coll return model's collection.
