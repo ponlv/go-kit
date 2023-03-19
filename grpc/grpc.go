@@ -32,7 +32,7 @@ var grpcInstance *grpcServer
 var log = plog.NewBizLogger("grpc")
 
 // init service grpc
-func Initial(name, host, port, tokenKey string) {
+func Initial(name, host, port, tokenKey string, whitelist []string) {
 
 	if grpcInstance != nil {
 		log.Warn().Msg("grpc server is alrealdy declare")
@@ -46,7 +46,8 @@ func Initial(name, host, port, tokenKey string) {
 	grpcInstance.host = host
 	grpcInstance.name = name
 	grpcInstance.tokenKey = tokenKey
-
+	grpcInstance.whitelist = whitelist
+	
 	maxMsgSize := 1024 * 1024 * 1024 //1GB
 	grpcInstance.service = grpc.NewServer(
 		grpc.MaxRecvMsgSize(maxMsgSize),
