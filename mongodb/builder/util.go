@@ -1,7 +1,7 @@
 package builder
 
 import (
-	"github.com/ponlv/go-sdk/mongodb/utils"
+	"github.com/ponlv/go-kit/mongodb/utils"
 
 	"go.mongodb.org/mongo-driver/bson"
 )

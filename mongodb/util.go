@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/ponlv/go-sdk/mongodb/utils"
+	"github.com/ponlv/go-kit/mongodb/utils"
 
 	"github.com/jinzhu/inflection"
 	"go.mongodb.org/mongo-driver/mongo/options"

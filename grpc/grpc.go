@@ -12,8 +12,8 @@ import (
 	"syscall"
 
 	grpc_auth "github.com/grpc-ecosystem/go-grpc-middleware/auth"
-	"github.com/ponlv/go-sdk/jwt"
-	"github.com/ponlv/go-sdk/plog"
+	"github.com/ponlv/go-kit/jwt"
+	"github.com/ponlv/go-kit/plog"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"

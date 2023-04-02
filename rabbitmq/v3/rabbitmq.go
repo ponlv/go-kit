@@ -6,7 +6,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/ponlv/go-sdk/plog"
+	"github.com/ponlv/go-kit/plog"
 
 	"github.com/makasim/amqpextra"
 	"github.com/makasim/amqpextra/consumer"
@@ -90,10 +90,10 @@ func DeclareQueue(ctx context.Context, exchange, queue string) error {
 	// create exchange
 	err = ch.ExchangeDeclare(exchange,
 		amqp.ExchangeTopic,
-		true,  // durable
-		false, // auto-deleted
-		false, // internal
-		false, // no-wait
+		true,         // durable
+		false,        // auto-deleted
+		false,        // internal
+		false,        // no-wait
 		amqp.Table{}) // arguments)
 	if err != nil {
 		return err
