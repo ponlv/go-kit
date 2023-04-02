@@ -109,7 +109,7 @@ func (e *ElasticClient) GetClient() *el.Client {
 	return e.Client
 }
 
-//Ping check connection
+// Ping check connection
 func (e *ElasticClient) Ping() error {
 	if err := e.CheckConnetion(); err != nil {
 		return err
