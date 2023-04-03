@@ -7,7 +7,6 @@ import (
 	"net"
 	"os"
 	"os/signal"
-	"strconv"
 	"strings"
 	"syscall"
 
@@ -151,9 +150,6 @@ func authFunc(ctx context.Context) (context.Context, error) {
 	if ok {
 		if len(md.Get("userid")) == 0 {
 			ctx = metadata.AppendToOutgoingContext(ctx, "userid", claims.UserID)
-		}
-		if len(md.Get("roleid")) == 0 {
-			ctx = metadata.AppendToOutgoingContext(ctx, "roleid", strconv.Itoa(claims.RoleID))
 		}
 	}
 	return ctx, nil
