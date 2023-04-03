@@ -10,20 +10,16 @@ import (
 
 type CustomClaims struct {
 	UserID   string `json:"userid"`
-	RoleID   int    `json:"roleid"`
-	Username string `json:"username"`
 	Email    string `json:"email"`
-	Type     string `json:"type"`
+	Metadata string `json:"metadata"`
 	jwt.RegisteredClaims
 }
 
-func GenerateJWTToken(key_sign, user_id, username, email, ttype, issuer string, role_id, expired int) (string, error) {
+func GenerateJWTToken(key_sign, user_id, email, metadata, issuer string, expired int) (string, error) {
 	signingKey := []byte(key_sign)
 	// Create the claims
 	claims := CustomClaims{
 		user_id,
-		role_id,
-		username,
 		email,
 		ttype,
 		jwt.RegisteredClaims{
