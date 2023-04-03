@@ -11,8 +11,8 @@ import (
 	"strings"
 	"syscall"
 
-	
 	grpc_auth "github.com/grpc-ecosystem/go-grpc-middleware/auth"
+	"github.com/grpc-ecosystem/go-grpc-middleware/util/metautils"
 	"github.com/ponlv/go-kit/jwt"
 	"github.com/ponlv/go-kit/plog"
 
@@ -159,7 +159,7 @@ func authFunc(ctx context.Context) (context.Context, error) {
 	return ctx, nil
 }
 
-func CtxWithToken(ctx context.Context, token string,args...string) context.Context {
+func CtxWithToken(ctx context.Context, token string, args ...string) context.Context {
 	md := metadata.Pairs(
 		"authorization", fmt.Sprintf("%s %v", "bearer", token),
 	)
@@ -169,10 +169,10 @@ func CtxWithToken(ctx context.Context, token string,args...string) context.Conte
 
 func FowardCtx(ctx context.Context) context.Context {
 	token, err := grpc_auth.AuthFromMD(ctx, "bearer")
-	if err!=nil{
-		token="";
+	if err != nil {
+		token = ""
 	}
-	return CtxWithToken(ctx,token)
+	return CtxWithToken(ctx, token)
 }
 
 func GetJWTContent(ctx context.Context) *jwt.CustomClaims {

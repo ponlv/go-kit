@@ -21,7 +21,7 @@ func GenerateJWTToken(key_sign, user_id, email, metadata, issuer string, expired
 	claims := CustomClaims{
 		user_id,
 		email,
-		ttype,
+		metadata,
 		jwt.RegisteredClaims{
 			// A usual scenario is to set the expiration time relative to the current time
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Duration(expired) * time.Second)),
