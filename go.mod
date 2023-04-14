@@ -10,10 +10,10 @@ require (
 	github.com/jinzhu/inflection v1.0.0
 	github.com/kamva/mgm/v3 v3.4.1
 	github.com/labstack/echo/v4 v4.7.2
-	github.com/makasim/amqpextra v0.17.0
+	github.com/makasim/amqpextra v1.2.1
 	github.com/olivere/elastic/v7 v7.0.32
 	github.com/pkg/errors v0.9.1
-	github.com/rabbitmq/amqp091-go v1.3.4
+	github.com/rabbitmq/amqp091-go v1.8.0
 	github.com/rs/zerolog v1.26.1
 	github.com/shopspring/decimal v1.3.1
 	github.com/sirupsen/logrus v1.4.2
@@ -53,7 +53,7 @@ require (
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/shirou/gopsutil v3.21.4-0.20210419000835-c7a38de76ee5+incompatible // indirect
 	github.com/streadway/amqp v1.0.0 // indirect
-	github.com/stretchr/testify v1.7.1 // indirect
+	github.com/stretchr/testify v1.8.1 // indirect
 	github.com/tklauser/go-sysconf v0.3.5 // indirect
 	github.com/tklauser/numcpus v0.2.2 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect

@@ -93,7 +93,6 @@ func DeclareQueue(ctx context.Context, exchange, queue string) error {
 	}
 	defer ch.Close()
 
-
 	// create exchange
 	logger.Info().Var("exchange", exchange).Msg("create exchange")
 	err = ch.ExchangeDeclare(exchange,
