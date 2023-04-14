@@ -11,7 +11,7 @@ import (
 	"github.com/makasim/amqpextra"
 	"github.com/makasim/amqpextra/consumer"
 	"github.com/makasim/amqpextra/publisher"
-	amqp "github.com/streadway/amqp"
+	amqp "github.com/rabbitmq/amqp091-go"
 )
 
 var dialer *amqpextra.Dialer
