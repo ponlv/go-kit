@@ -78,14 +78,12 @@ func DeclareQueue(ctx context.Context, exchange, queue string) error {
 		return errors.New("rabbitmq: no dialer available")
 	}
 
-	logger.Info().Msg("get rabbit connection")
 	con, err := dialer.Connection(ctx)
 	if err != nil {
 		logger.Error().Err(err).Send()
 		return err
 	}
 
-	logger.Info().Msg("get rabbit channel")
 	ch, err := con.Channel()
 	if err != nil {
 		logger.Error().Err(err).Send()
@@ -94,7 +92,6 @@ func DeclareQueue(ctx context.Context, exchange, queue string) error {
 	defer ch.Close()
 
 	// create exchange
-	logger.Info().Var("exchange", exchange).Msg("create exchange")
 	err = ch.ExchangeDeclare(exchange,
 		amqp.ExchangeTopic,
 		true,         // durable
@@ -107,14 +104,12 @@ func DeclareQueue(ctx context.Context, exchange, queue string) error {
 		return err
 	}
 
-	logger.Info().Var("queue", queue).Msg("declare queue")
 	q, err := ch.QueueDeclare(queue, true, false, false, false, nil)
 	if err != nil {
 		logger.Error().Err(err).Send()
 		return err
 	}
 
-	logger.Info().Var("queue", queue).Msg("bindqueue")
 	err = ch.QueueBind(
 		q.Name,
 		fmt.Sprintf("%s.%s", exchange, q.Name),
@@ -126,7 +121,8 @@ func DeclareQueue(ctx context.Context, exchange, queue string) error {
 		logger.Error().Err(err).Send()
 		return err
 	}
-
+	
+	logger.Info().Var("queue", queue).Msg("declare queue successfully")
 	return nil
 }
 
