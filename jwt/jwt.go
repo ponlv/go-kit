@@ -69,6 +69,9 @@ func VerifyJWTToken(key, token_string string) (*CustomClaims, error) {
 		}
 		return []byte(key), nil
 	})
+	if token == nil {
+		return nil, errors.New("PARSE_TOKEN_ERROR")
+	}
 	claim, ok := token.Claims.(*CustomClaims)
 	if ok && token.Valid {
 		return claim, nil
