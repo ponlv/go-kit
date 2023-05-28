@@ -116,8 +116,6 @@ func authFunc(ctx context.Context) (context.Context, error) {
 		return nil, errors.New("ACL_ACCESS_DENY")
 	}
 
-	log.Info().Var("grpc_route", method_route).Send()
-
 	if method_route == "" {
 		return nil, errors.New("ACL_METHOD_EMPTY")
 	}
