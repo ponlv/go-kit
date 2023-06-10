@@ -13,14 +13,14 @@ import (
 )
 
 // Coll return model's collection.
-func Coll(m Model, opts ...*options.CollectionOptions) *Collection {
+func Coll(db string, m Model, opts ...*options.CollectionOptions) *Collection {
 	if collGetter, ok := m.(CollectionGetter); ok {
 		return collGetter.Collection()
 	}
-	return CollectionByName(CollName(m), opts...)
+	return CollectionByName(db, CollName(m), opts...)
 }
 
-func CollRead(m Model, opts ...*options.CollectionOptions) *Collection {
+func CollRead(db string, m Model, opts ...*options.CollectionOptions) *Collection {
 	readPref, err := readpref.New(readpref.NearestMode)
 
 	if err != nil {
@@ -34,14 +34,14 @@ func CollRead(m Model, opts ...*options.CollectionOptions) *Collection {
 
 	opts = append(opts, &colOption)
 
-	return Coll(m, opts...)
+	return Coll(db, m, opts...)
 }
 
-func CollWithMode(m Model, mode readpref.Mode) *Collection {
+func CollWithMode(db string, m Model, mode readpref.Mode) *Collection {
 	if collGetter, ok := m.(CollectionGetter); ok {
 		return collGetter.Collection()
 	}
-	return CollectionByNameWithMode(CollName(m), mode)
+	return CollectionByNameWithMode(db, CollName(m), mode)
 }
 
 // CollName check if you provided collection name in your

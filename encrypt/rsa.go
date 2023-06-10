@@ -9,7 +9,8 @@ import (
 	"errors"
 	//"fmt"
 )
-func RSA_Generate_KEY(size int) (string,string,error){
+
+func RSAGenerateKey(size int) (string,string,error){
 	privateKey, err := rsa.GenerateKey(rand.Reader, size)
 	if err!=nil{
 		return "","",err
@@ -22,7 +23,8 @@ func RSA_Generate_KEY(size int) (string,string,error){
 	}
 	return pri_str,pub_str,nil
 }
-func RSA_OAEP_Encrypt(secretMessage string, pub_key string) (string,error) {
+
+func RSAEncrypt(secretMessage string, pub_key string) (string,error) {
 	key,err:=ParseRsaPublicKeyFromStr(pub_key)
 	if err!=nil{
 		return "",err 
@@ -36,7 +38,7 @@ func RSA_OAEP_Encrypt(secretMessage string, pub_key string) (string,error) {
 	return base64.StdEncoding.EncodeToString(ciphertext),err
 }
 
-func RSA_OAEP_Decrypt(cipherText string,pri_key string) (string,error) {
+func RSADecrypt(cipherText string,pri_key string) (string,error) {
 	privKey,err:=ParseRsaPrivateKeyFromStr(pri_key)
 	if err!=nil{
 		return "",err 
@@ -50,8 +52,6 @@ func RSA_OAEP_Decrypt(cipherText string,pri_key string) (string,error) {
 	}
 	return string(plaintext),nil
 }
-
-
 
 func ExportRsaPrivateKeyAsStr(privkey *rsa.PrivateKey) string {
     privkey_bytes := x509.MarshalPKCS1PrivateKey(privkey)

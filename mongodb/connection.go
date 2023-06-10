@@ -2,10 +2,7 @@ package mongodb
 
 import (
 	"context"
-	"errors"
 	"time"
-
-	"github.com/ponlv/go-kit/mongodb/utils"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -14,7 +11,6 @@ import (
 
 var config *Config
 var client *mongo.Client
-var db *mongo.Database
 var dbName string
 
 // Config struct contain extra config of mgm package.
@@ -65,36 +61,19 @@ func NewCollection(db *mongo.Database, name string, opts ...*options.CollectionO
 func ResetDefaultConfig() {
 	config = nil
 	client = nil
-	db = nil
 }
 
-//// SetDefaultConfig initial default client and Database .
-//func SetDefaultConfig(conf *Config, dbName string, opts ...*options.ClientOptions) (err error) {
-//
-//	// Get predefined config as default config if user
-//	// do not provide it.
-//	if conf == nil {
-//		conf = defaultConf()
-//	}
-//
-//	config = conf
-//
-//	if client, err = NewClient(opts...); err != nil {
-//		return err
-//	}
-//
-//	db = client.Database(dbName)
-//
-//	return nil
-//}
-
 // CollectionByName return new collection from default config
-func CollectionByName(name string, opts ...*options.CollectionOptions) *Collection {
+func CollectionByName(dbName, name string, opts ...*options.CollectionOptions) *Collection {
+	db := client.Database(dbName)
+
 	return NewCollection(db, name, opts...)
 }
 
 // CollectionByNameWithMode return new collection from default config
-func CollectionByNameWithMode(name string, mode readpref.Mode) *Collection {
+func CollectionByNameWithMode(dbName, name string, mode readpref.Mode) *Collection {
+	db := client.Database(dbName)
+
 	if mode == readpref.SecondaryMode || mode == readpref.SecondaryPreferredMode {
 		readPreference, err := readpref.New(mode)
 		if err != nil {
@@ -108,15 +87,6 @@ func CollectionByNameWithMode(name string, mode readpref.Mode) *Collection {
 	} else {
 		return NewCollection(db, name)
 	}
-}
-
-// DefaultConfigs return you'r default mongodb configs.
-func DefaultConfigs() (*Config, *mongo.Client, *mongo.Database, error) {
-	if utils.AnyNil(config, client, db) {
-		return nil, nil, nil, errors.New("please setup default config before acquiring it")
-	}
-
-	return config, client, db, nil
 }
 
 // defaultConf is default config ,If you do not pass config

@@ -11,10 +11,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func GetDB() *mongo.Database {
-	return db
-}
-
 type DBConfig struct {
 	DbName     string
 	UserName   string
@@ -89,7 +85,6 @@ func ConnectMongoWithConfig(dbConfig *MongoConfig, conf *Config, tlsConf *tls.Co
 
 	// setup db
 	dbName = dbConfig.DbName
-	db = client.Database(dbName)
 
 	log.Printf("[INFO] CONNECTED TO MONGO DB %s", dbName)
 	return ctx, client, cancel, nil
