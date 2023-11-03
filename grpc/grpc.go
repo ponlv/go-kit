@@ -141,7 +141,7 @@ func authFunc(ctx context.Context) (context.Context, error) {
 	// verify token
 	claims, err := jwt.VerifyJWTToken(grpcInstance.tokenKey, token)
 	if err != nil {
-		return nil, err
+		return nil, errors.New("_TOKEN_EXPIRED_")
 	}
 
 	md, ok := metadata.FromIncomingContext(ctx)

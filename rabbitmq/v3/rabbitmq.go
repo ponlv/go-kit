@@ -121,7 +121,7 @@ func DeclareQueue(ctx context.Context, exchange, queue string) error {
 		logger.Error().Err(err).Send()
 		return err
 	}
-	
+
 	logger.Info().Var("queue", queue).Msg("declare queue successfully")
 	return nil
 }
@@ -153,7 +153,7 @@ func Consumer(ctx context.Context, exchange, queue string, handle func([]byte) e
 	return
 }
 
-func ConsumerParallel(ctx context.Context, exchange, queue string, numWorkers int, handle func([]byte) error) {
+func ConsumerParallel(ctx context.Context, exchange, queue string, numWorkers int, handle func([]byte) (bool, error)) {
 
 	if dialer == nil {
 		logger.Error().Err(errors.New("rabbitmq: no dialer available")).Send()
@@ -162,9 +162,13 @@ func ConsumerParallel(ctx context.Context, exchange, queue string, numWorkers in
 
 	h := consumer.HandlerFunc(func(ctx context.Context, msg amqp.Delivery) interface{} {
 		bb := msg.Body
-		err := handle(bb)
+		isNack, err := handle(bb)
 		if err != nil {
 			fmt.Println(err)
+		}
+
+		if isNack {
+			return msg.Nack(false, false)
 		}
 		return msg.Ack(false)
 	})
