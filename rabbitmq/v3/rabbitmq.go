@@ -67,7 +67,6 @@ func Publish(ctx context.Context, exchange, queue string, body interface{}) erro
 		return err
 	}
 
-	logger.Info().Var("body", body).Msg("publish succeeded")
 	return nil
 }
 
