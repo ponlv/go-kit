@@ -17,6 +17,12 @@ import (
 var dialer *amqpextra.Dialer
 var logger = plog.NewBizLogger("rabbitmq")
 
+type PublishRequest struct {
+	Exchange string
+	Key      string
+	Message  interface{}
+}
+
 func Init(uri string) error {
 	var err error
 
@@ -29,7 +35,7 @@ func Init(uri string) error {
 	return nil
 }
 
-func Publish(ctx context.Context, exchange, queue string, body interface{}) error {
+func Publish(ctx context.Context, data PublishRequest) error {
 
 	if dialer == nil {
 		logger.Error().Err(errors.New("rabbitmq: no dialer available")).Send()
@@ -45,15 +51,15 @@ func Publish(ctx context.Context, exchange, queue string, body interface{}) erro
 	}
 	defer p.Close()
 
-	bytes, err := json.Marshal(body)
+	bytes, err := json.Marshal(data.Message)
 	if err != nil {
 		fmt.Println(err)
 	}
 
 	err = p.Publish(publisher.Message{
 		Context:   ctx,
-		Exchange:  exchange,
-		Key:       fmt.Sprintf("%s.%s", exchange, queue),
+		Exchange:  data.Exchange,
+		Key:       data.Key,
 		Mandatory: true,
 		Immediate: false,
 		Publishing: amqp.Publishing{
@@ -61,9 +67,8 @@ func Publish(ctx context.Context, exchange, queue string, body interface{}) erro
 			Body:        bytes,
 		},
 	})
-
 	if err != nil {
-		logger.Error().Err(err).Var("key", fmt.Sprintf("%s.%s", exchange, queue)).Msg("publish failed")
+		logger.Error().Err(err).Var("key", data.Key).Msg("publish failed")
 		return err
 	}
 
