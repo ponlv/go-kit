@@ -89,3 +89,45 @@ func ConnectMongoWithConfig(dbConfig *MongoConfig, conf *Config, tlsConf *tls.Co
 	log.Printf("[INFO] CONNECTED TO MONGO DB %s", dbName)
 	return ctx, client, cancel, nil
 }
+
+
+func ConnectMongoWithString(uri string, db string,  maxConnectionPool uint64,  conf *Config, tlsConf *tls.Config) (context.Context, *mongo.Client, context.CancelFunc, error) {
+	if conf == nil {
+		conf = defaultConf()
+	}
+	config = conf
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+
+	// setup client
+	clientOption := options.Client().ApplyURI(uri)
+
+	// max pool size
+	if maxConnectionPool > 0 {
+		clientOption.SetMaxPoolSize(maxConnectionPool)
+	}
+
+	// tls config
+	if tlsConf != nil {
+		clientOption.SetTLSConfig(tlsConf)
+	}
+
+	clientNew, err := NewClient(ctx, clientOption)
+	if err != nil {
+		return ctx, nil, cancel, err
+	}
+	client = clientNew
+
+	// ping
+	err = client.Ping(ctx, nil)
+	if err != nil {
+		log.Fatalf("[FATAL] CAN'T CONNECT TO MONGODB: %s", err.Error())
+		return ctx, nil, cancel, err
+	}
+
+	// setup db
+	dbName = db
+
+	log.Printf("[INFO] CONNECTED TO MONGO DB %s", dbName)
+	return ctx, client, cancel, nil
+}
